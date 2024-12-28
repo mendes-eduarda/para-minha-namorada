@@ -30,7 +30,7 @@
       color: black;
       font-size: 16px;
       font-weight: bold;
-      max-width: 400px;
+      max-width: 300px;
       margin-top: 20px;
       opacity: 0; /* Oculta inicialmente */
       transition: opacity 1s ease-in-out; /* Transição suave */
@@ -86,7 +86,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         for (let t = 0; t < angle; t += 0.01) {
-          const x = 300 + 150 * Math.sin(t) ** 3;
+          const x = 250 + 150 * Math.sin(t) ** 3;
           const y = 300 - 120 * (Math.cos(t) - Math.cos(2 * t) / 2 - Math.cos(3 * t) / 6 - Math.cos(4 * t) / 8);
           if (t === 0) {
             ctx.moveTo(x, y);
