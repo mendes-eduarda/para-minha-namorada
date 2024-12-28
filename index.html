@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLARA ESTEVES ATAIDE EU TE AMO!!</title>
+  <style>
+    body {
+      background: url('F549F8CA-09EC-4904-A12E-D0811F2FF179.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Merriweather', serif;
+      text-align: center;
+      opacity: 70%;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    .message {
+      box-shadow: 0 0 30px 10px purple;
+      background-color: yellow;
+      border-radius: 6%;
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      max-width: 600px;
+      margin-top: 20px;
+      opacity: 0; /* Oculta inicialmente */
+      transition: opacity 1s ease-in-out; /* Transição suave */
+    }
+  </style>
+</head>
+<body>
+  <canvas id="heartCanvas" width="500" height="500"></canvas>
+  <div class="message" id="finalMessage">
+    Não vejo a hora de casar com você e vivermos em uma casinha bem a nossa cara com cachorrinho e gatinho. Você é a mulher mais linda do universo, amor!
+  </div>
+
+  <script>
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+    const message = document.getElementById('finalMessage');
+
+    function drawHeartStepByStep() {
+      let angle = 0;
+      ctx.fillStyle = 'yellow';
+      ctx.strokeStyle = 'yellow';
+      ctx.lineWidth = 2;
+
+      function drawFrame() {
+        if (angle > Math.PI * 2) {
+          // Exibe a mensagem gradativamente após o coração estar completo
+          setTimeout(() => {
+            message.style.opacity = '1'; // Mostra a mensagem
+            setTimeout(() => {
+              // Remove o conteúdo existente do corpo da página
+              document.body.style.background = 'black';
+              document.body.innerHTML = '';
+
+              // Exibe a foto em tela cheia
+              const fullscreenPhoto = document.createElement('div');
+              fullscreenPhoto.style.position = 'fixed';
+              fullscreenPhoto.style.top = '0';
+              fullscreenPhoto.style.left = '0';
+              fullscreenPhoto.style.width = '100%';
+              fullscreenPhoto.style.height = '100%';
+              fullscreenPhoto.style.backgroundImage = "url('tu e eu.jpg')"; // Substitua pelo nome da sua imagem
+              fullscreenPhoto.style.backgroundSize = 'cover';
+              fullscreenPhoto.style.backgroundPosition = 'center';
+              fullscreenPhoto.style.zIndex = '1000';
+
+              document.body.appendChild(fullscreenPhoto);
+            }, 10000); // Aguarda 3 segundos após a mensagem
+          }, 3000);
+          return;
+        }
+
+        // Calcula pontos do coração
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        for (let t = 0; t < angle; t += 0.01) {
+          const x = 300 + 150 * Math.sin(t) ** 3;
+          const y = 300 - 120 * (Math.cos(t) - Math.cos(2 * t) / 2 - Math.cos(3 * t) / 6 - Math.cos(4 * t) / 8);
+          if (t === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        angle += 0.05; // Incrementa o ângulo
+        requestAnimationFrame(drawFrame);
+      }
+
+      drawFrame();
+    }
+
+    function drawText() {
+      ctx.fillStyle = 'white';
+      ctx.font = '26px Merriweather blod';
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        'CLARA ESTEVES ATAIDE EU TE AMO!!',
+        canvas.width / 2,
+        canvas.height - 50
+      );
+    }
+
+    // Executa o título primeiro, depois o coração e a mensagem
+    drawText();
+    setTimeout(drawHeartStepByStep, 2000); // Aguarda 2 segundos para iniciar o desenho do coração
+  </script>
+</body>
+</html>
